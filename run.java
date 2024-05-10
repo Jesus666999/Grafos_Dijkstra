@@ -6,28 +6,49 @@ public class run {
        
     
     public static void main(String[] args) {
-        Nodo nodo1 = new Nodo("A");
-        Nodo nodo2 = new Nodo("B");
-        Nodo nodo3 = new Nodo("C");
-        Nodo nodo4 = new Nodo("D");
-        Nodo nodo5 = new Nodo("E");
+        Nodo nodoA =  new Nodo("A");
+        Nodo nodoB = new Nodo("B");
+        Nodo nodoC = new Nodo("C");
+        Nodo nodoD = new Nodo("D");
+        Nodo nodoE = new Nodo("E");
+        Nodo nodoF = new Nodo("F");
+        Nodo nodoG = new Nodo("G");
+        Nodo nodoH = new Nodo("H");
         
-        grafo.addNode(nodo1);
-        grafo.addNode(nodo2);
-        grafo.addNode(nodo3);
-        grafo.addNode(nodo4);
-        grafo.addNode(nodo5);
+        grafo.addNode(nodoA);
+        grafo.addNode(nodoB);
+        grafo.addNode(nodoC);
+        grafo.addNode(nodoD);
+        grafo.addNode(nodoE);
+        grafo.addNode(nodoF);
+        grafo.addNode(nodoG);
+        grafo.addNode(nodoH);
+       
+        System.out.println("Enlaces entre los nodos: \n");
         
-        grafo.newLink(nodo1, nodo4);
-        grafo.newLink(nodo2, nodo5);
-        grafo.newLink(nodo2, nodo1);
-        grafo.newLink(nodo3, nodo1);
-        grafo.newLink(nodo4, nodo2);
-        grafo.newLink(nodo5, nodo3);
+        grafo.newLink(nodoA, nodoD);
+        grafo.newLink(nodoA, nodoB);
+        grafo.newLink(nodoA, nodoE);
+        grafo.newLink(nodoA, nodoC);
         
+        grafo.newLink(nodoB, nodoE);
+        grafo.newLink(nodoB, nodoG);
+        grafo.newLink(nodoB, nodoD);
+        
+        grafo.newLink(nodoC, nodoE);
+        grafo.newLink(nodoC, nodoH);
+        
+        grafo.newLink(nodoD, nodoG);
+        grafo.newLink(nodoD, nodoH);
+        
+        grafo.newLink(nodoE, nodoF);
+        
+        grafo.newLink(nodoF, nodoG);
+        
+        System.out.println("\nMatriz de adyacencia: \n");
         System.out.println(grafo.mostrar());
         
-        grafo = grafo.dijkstra(grafo, nodo1);
+        grafo = grafo.dijkstra(grafo, nodoA);
         
     }
     
