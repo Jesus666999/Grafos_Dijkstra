@@ -63,7 +63,7 @@ public class Grafo {
             }
             position.lista.nuevaAdyacencia(origen, costo);
 
-            System.out.println("Origen: " + origen.getDato() + " Costo: " + costo + " Destino: " + destino.getDato());
+            System.out.println("Origen: " + origen.getDato() + "\tCosto: " + costo + "\tDestino: " + destino.getDato());
         }
     }
 
@@ -140,13 +140,14 @@ public class Grafo {
             visitados.add(actual);
         }
         Nodo temp = primero;
+        System.out.println("\nNODOS Y SUS PESOS, CALCULADOS DESDE: " + source.getDato());
         while (temp != null) {
             String route = "";
             System.out.println("Nodo: " + temp.getDato() + " costo: " + temp.getCosto());
             for(Nodo node : temp.getShortestPath()){
                 route += node.getDato() + " -> ";
             }
-            System.out.println("Ruta mas corta: " + route);
+            System.out.println("Ruta mas corta: " + route + temp.getDato() + "\n");
             temp = temp.getSiguiente();
         }
         return grafo;
