@@ -1,3 +1,4 @@
+//Reynoso Garcia Jesus Salvador 22310400
 package Principal;
 
 
@@ -24,7 +25,7 @@ public class run {
         grafo.addNode(nodoG);
         grafo.addNode(nodoH);
        
-        System.out.println("Enlaces entre los nodos: \n");
+        System.out.println("ENLACES ENTRE LOS NODOS: \n");
         
         grafo.newLink(nodoA, nodoD);
         grafo.newLink(nodoA, nodoB);
@@ -45,7 +46,7 @@ public class run {
         
         grafo.newLink(nodoF, nodoG);
         
-        System.out.println("\nMatriz de adyacencia: \n");
+        System.out.println("\nMATRIZ DE ADYACENCIA: \n");
         System.out.println(grafo.mostrar());
         
         grafo = grafo.dijkstra(grafo, nodoA);

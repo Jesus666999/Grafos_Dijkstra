@@ -1,11 +1,17 @@
+//Reynoso Garcia Jesus Salvador 22310400
 package Principal;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
+import javax.swing.JOptionPane;
 
 public class Grafo {
+
+    Graphics g;
 
     Nodo primero, ultimo;
 
@@ -23,6 +29,29 @@ public class Grafo {
 
     public void setUltimo(Nodo ultimo) {
         this.ultimo = ultimo;
+    }
+
+    public Nodo getNode(String nombre) {
+        Nodo current = primero;
+        boolean found = false;
+        if (primero == null) {
+            JOptionPane.showMessageDialog(null, "El grafo esta vacio");
+            return null;
+        } else {
+            while (found == false && current != null) {
+                if (current.getDato().equals(nombre)) {
+                    found = true;
+                } else {
+                    current = current.getSiguiente();
+                }
+            }
+            if (found == false) {
+                JOptionPane.showMessageDialog(null, "El nodo no existe");
+                current = null;
+            }
+            return current;
+        }
+
     }
 
     public Grafo() {
@@ -144,13 +173,60 @@ public class Grafo {
         while (temp != null) {
             String route = "";
             System.out.println("Nodo: " + temp.getDato() + " costo: " + temp.getCosto());
-            for(Nodo node : temp.getShortestPath()){
+            for (Nodo node : temp.getShortestPath()) {
                 route += node.getDato() + " -> ";
             }
             System.out.println("Ruta mas corta: " + route + temp.getDato() + "\n");
             temp = temp.getSiguiente();
         }
         return grafo;
+    }
+
+    public void paintNode(int mX, int mY, String nombre) {
+        g.drawOval(mX, mY, 50, 50);
+        g.drawString(nombre, mX + 30, mY);
+    }
+
+    public Graphics dijkstra(Grafo grafo, Nodo source, Graphics graf) {
+        g = graf;
+        g.setColor(Color.red);
+        g.drawOval(source.getCoord().x - 25, source.getCoord().y - 25, 50, 50);
+        g.drawString("Origen", source.getCoord().x + 30, source.getCoord().y);
+        g.setColor(Color.BLUE);
+        source.setCosto(0);
+        Set<Nodo> visitados = new HashSet<>();
+        Set<Nodo> noVisitados = new HashSet<>();
+
+        noVisitados.add(source);
+        while (noVisitados.size() != 0) {
+            Nodo actual = getLowestDistanceNode(noVisitados);
+            noVisitados.remove(actual);
+            ArrayList<Link> links = actual.getLista().getLinks();
+            for (Link link : links) {
+                Nodo adjacentNode = link.getDestino();
+                int costoLink = link.getCosto();
+                if (!visitados.contains(adjacentNode)) {
+                    calculateMinimumDistance(adjacentNode, costoLink, actual);
+                    noVisitados.add(adjacentNode);
+                }
+            }
+            visitados.add(actual);
+        }
+        Nodo temp = primero;
+        System.out.println("\nNODOS Y SUS PESOS, CALCULADOS DESDE: " + source.getDato());
+        while (temp != null) {
+
+            String route = "";
+            System.out.println("Nodo: " + temp.getDato() + " costo: " + temp.getCosto());
+            for (Nodo node : temp.getShortestPath()) {
+                route += node.getDato() + " -> ";
+            }
+            System.out.println("Ruta mas corta: " + route + temp.getDato() + "\n");
+            g.drawString(Integer.toString(temp.getCosto()), temp.getCoord().x + 30, temp.getCoord().y);
+            g.drawString("Ruta mas corta: " + route + temp.getDato(), temp.getCoord().x + 30, temp.getCoord().y + 30);
+            temp = temp.getSiguiente();
+        }
+        return g;
     }
 
     public Nodo getLowestDistanceNode(Set<Nodo> noVisitados) {
