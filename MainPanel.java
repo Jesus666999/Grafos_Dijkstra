@@ -19,6 +19,10 @@ public class MainPanel extends javax.swing.JFrame {
         this.setTitle("Grafos: Dijsktra Visual");
     }
 
+    public void paintOval(){
+        g.drawOval(5, 5, 5, 5);
+    }
+
     public void paintNode(int mX, int mY, String nombre) {
         g.drawOval(mX, mY, 50, 50);
         g.drawString(nombre, mX + 25, mY + 25);
